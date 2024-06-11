@@ -16,11 +16,14 @@
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 322,
-                "y": 273
+                "x": 316,
+                "y": 268
             }
         },
         "C:/Users/JC/Downloads/CMPM 120/PlatformImprovement/assets/platformer-level-1.tmx#kenny_tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "C:/Users/JC/Downloads/CMPM 120/PlatformImprovement/assets/platformer-level-1.tmx#tilemapBig_packed": {
             "scaleInDock": 1
         },
         "C:/Users/JC/Downloads/CMPM 120/PlatformImprovement/assets/platformer-level-1.tmx#tilemapFarm_packed": {
@@ -58,8 +61,8 @@
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 359.5,
-                "y": 179
+                "x": 359,
+                "y": 180
             }
         },
         "platformer-level-1.tmx#tilemapBig_packed": {
@@ -107,8 +110,8 @@
     "project": "untitled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "platformer-level-1.tmj",
         "C:/Users/JC/Downloads/CMPM 120/PlatformImprovement/assets/platformer-level-1.tmx",
+        "platformer-level-1.tmj",
         "platformer-level-1.tmx",
         "platformerLevel1.tmx"
     ],
