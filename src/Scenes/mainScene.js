@@ -18,7 +18,7 @@ class mainScene extends Phaser.Scene {
     create() {
         // Create a new tilemap game object which uses 18x18 pixel tiles, and is
         // 45 tiles wide and 25 tiles tall.
-        this.map = this.add.tilemap("platformer-level-1", 18, 18, 45, 25);
+        this.map = this.add.tilemap("platformer-level-1", 18, 18, 120, 40);
 
         this.pick = this.input.keyboard.addKey("E");
         this.objCount = 0;
@@ -29,9 +29,6 @@ class mainScene extends Phaser.Scene {
         // Add a tileset to the map
         // First parameter: name we gave the tileset in Tiled
         // Second parameter: key for the tilesheet (from this.load.image in Load.js)
-        //this.tileset = this.map.addTilesetImage("tilemap_packed", "tilemap_tiles");
-        //this.tileset = this.map.addTilesetImage("tilemapFarm_packed", "tilemap_tiles_farm");
-        //this.tileset = this.map.addTilesetImage("tilemapFood_packed", "tilemap_tiles_food");
         this.tileset = this.map.addTilesetImage("tilemapBig_packed", "tilemap_tiles_big");
 
         // Create a layer
@@ -85,6 +82,12 @@ class mainScene extends Phaser.Scene {
             key: "tilemap_sheet",
             frame: 111
         });
+
+        this.E = this.map.createFromObjects("Objects", {
+            name: "E",
+            key: "tilemap_sheet",
+            frame: 173
+        });
         
 
         // Since createFromObjects returns an array of regular Sprites, we need to convert 
@@ -97,6 +100,9 @@ class mainScene extends Phaser.Scene {
         this.physics.world.enable(this.carrot, Phaser.Physics.Arcade.STATIC_BODY);
         this.physics.world.enable(this.flag, Phaser.Physics.Arcade.STATIC_BODY);
 
+
+        this.physics.world.enable(this.E, Phaser.Physics.Arcade.STATIC_BODY);
+
         // Create a Phaser group out of the array this.coins
         // This will be used for collision detection below.
         this.pumpGroup = this.add.group(this.pump);
@@ -106,16 +112,40 @@ class mainScene extends Phaser.Scene {
         this.waterGroup = this.add.group(this.water);
         this.carrotGroup = this.add.group(this.carrot);
         this.flagGroup = this.add.group(this.flag);
+
+        //this.EGroup = this.add.group(this.E);
         
 
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(350, 450, "platformer_characters", "tile_0000.png");
+        my.sprite.player = this.physics.add.sprite(50, 600, "platformer_characters", "tile_0000.png");
         my.sprite.player.setCollideWorldBounds(true);
 
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
 
         // Handle collision detection with coins
+
+
+
+        //ALL LOGS
+        this.physics.add.overlap(my.sprite.player, this.E, (obj1, obj2) => {
+            obj2.setVisible(true);
+            if(Phaser.Input.Keyboard.JustDown(this.pick)) {
+                this.my.text.speach = this.add.bitmapText(obj2.x - 50, obj2.y - 25, "honk", "BAHHH IM THE GLUCOSE GOBLIN AND I WANT THE SWEETEST TREAT YOU HAVE!");
+                this.my.text.speach.setScale(0.4);
+                this.sound.play("write", {
+                    volume: 0.4   // Can adjust volume using this, goes from 0 to 1
+                });
+
+                const delay = 3000;
+
+            // Create a timer to handle text disappearance
+                const timer = this.time.delayedCall(delay, () => {
+                    this.my.text.speach.destroy(); // Destroy the text object after the delay
+                });
+            }
+        });
+
         this.physics.add.overlap(my.sprite.player, this.pumpGroup, (obj1, obj2) => {
             if(Phaser.Input.Keyboard.JustDown(this.pick)) {
                 obj2.destroy();
